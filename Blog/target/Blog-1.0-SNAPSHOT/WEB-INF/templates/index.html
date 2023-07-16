@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <script th:src="@{/static/js/index.js}"></script>
+    <script th:src="@{/static/js/jquery-3.4.1.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/bootstrap-3.4.1/dist/css/bootstrap.css}">
+    <script th:src="@{/static/bootstrap-3.4.1/dist/js/bootstrap.js}"></script>
+</head>
+<body>
+<!-- title -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 header-top" style="overflow: hidden; text-overflow: ellipsis;white-space: nowrap;">
+            <h3 style="display: inline;color: white;">博客后台管理系统</h3>
+            <span class="col-md-offset-3" id="nav-diy">
+                    <span class="col-md-offset-5" style="color: white">用户：<span style="color: white;" th:text="${session.userName}"></span></span>
+                <a style="color: white;margin-left: 5%;" th:href="@{'user/usedit?id='+${session.userId}}">信息修改</a>
+            </span>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="row content-body">
+        <div class="col-md-12" style="padding: 0;">
+            <div class="col-md-12">
+                <div class="col-md-12" style="background-color: lightgrey;border-radius: 5px;height: 50px;line-height: 50px;margin-top: 1%;">
+                    <a th:href="@{/article/add}" class="btn btn-primary">+添加文章</a>
+                    <span style="float: right;">&nbsp;&nbsp;/当前页：<strong th:text="${count}"></strong></span>
+                    <span style="float: right;">总页数：<strong th:text="${pageSize}"></strong></span>
+                </div>
+                <div class="col-md-12">
+                    <form th:action="@{/article/deletes}" method="post" name="form1">
+                        <table class="table table-bordered" style="margin-top: 1%;text-align: center;table-layout: fixed;padding: 0;">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center; width: 5%"><input type="checkbox" id="parent"></th>
+                                <th style="text-align: center; width: 5%">文章ID</th>
+                                <th style="text-align: center; width: 10%;">文章标题</th>
+                                <th style="text-align: center;width: 10%;">文章作者</th>
+                                <th style="text-align: center;width: 46%">文章内容</th>
+                                <th style="text-align: center;width: 10%;">发表时间</th>
+                                <th style="text-align: center; width: 7%">文章类型</th>
+                                <th style="text-align: center;width: 12%;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item,index : ${list}" id="child">
+                                <td style="vertical-align: middle"><input type="checkbox" name="aid" th:value="${item.aid}"></td>
+                                <td style="vertical-align: middle;" th:text="${index.count}"></td>
+                                <td style="vertical-align: middle;" th:text="${item.title}"></td>
+                                <td style="vertical-align: middle;" th:text="${item.author}"></td>
+                                <td style="vertical-align: middle;" th:text="${item.content}"></td>
+                                <td style="vertical-align: middle;"
+                                    th:text="${#calendars.format(item.time, 'yyyy年MM月dd日')}"></td>
+                                <td style="vertical-align: middle;">
+                                <span th:if="${item.type == 1}">
+                                    新闻
+                                </span>
+                                    <span th:if="${item.type == 2}">
+                                    旅游
+                                </span>
+                                    <span th:if="${item.type == 3}">
+                                    娱乐
+                                </span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <a th:href="@{'/article/edit?id='+${item.aid}}" class="btn btn-success">评价</a>
+                                    <a th:href="@{'/article/edit?id='+${item.aid}}" class="btn btn-primary">详情</a>
+                                    <a  class="btn btn-danger" th:href="@{/article/del(id=${item.aid})}">删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <a href="javascript:document.form1.submit()" class="btn btn-danger">批量删除</a>
+                    </form>
+
+                </div>
+                <div class="col-md-12" style="height: 50px;line-height: 50px;">
+                    <span style="float:right;">
+                        <a th:href="@{/article/page?id=1}" class="btn btn-primary">首页</a>
+                        <a th:if="${pageSize} != 0" th:href="@{'/article/page?id='+${pageSize}}" class="btn btn-primary">尾页</a>
+                        <a th:if="${count - 1 != 0}" th:href="@{'/article/page?id='+${count-1}}" class="btn btn-primary">上一页</a>
+                        <a th:if="${count} < ${pageSize}" th:href="@{'/article/page?id='+${count+1}}" class="btn btn-primary">下一页</a>
+                        <form th:action="@{/article/page}" style="display: inline;">
+                            <lable>页数：</lable>
+                            <input id="p1" type="text" style="width: 50px;display: inline;" name="id" class="form-control">
+                            <input id="p1" type="submit" value="跳转" class="btn btn-primary">
+                        </form>
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

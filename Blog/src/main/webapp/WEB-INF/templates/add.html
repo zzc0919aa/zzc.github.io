@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/bootstrap-3.4.1/dist/css/bootstrap.css}">
+    <style>
+        * { margin: 0; padding: 0; }
+        body {
+            background-image: url("/static/image/wallhaven-qzl3jq.png");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        form {
+            background-color: white;
+            width: 500px;
+            border-radius: 1%;
+            box-shadow: 0 0 10px black;
+        }
+        .up,.back {
+            width: 20%;
+            height: 37px;
+        }
+        form p {
+            margin-left: 4%;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form th:action="@{/article/add}" name="form1" method="post">
+                <h1>添加</h1>
+                <div class="row">
+                    <p class="col-md-11">
+                        <input class="form-control" type="text" placeholder="文章标题" name="title">
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-11">
+                        <input class="form-control" type="text" placeholder="文章作者" name="author">
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-11">
+                        <textarea name="content" class="form-control" id="" cols="30" rows="10" placeholder="文章内容" style="resize: none;"></textarea>
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-11">
+                        <select name="type" class="form-control">
+                            <option value="1">文章类型</option>
+                            <option value="1">新闻</option>
+                            <option value="1">旅游</option>
+                            <option value="1">娱乐</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-11">
+                        <a href="javascript:document.form1.submit()" class="btn btn-primary">提交</a>
+                        <a th:href="@{/article/list}" class="btn btn-primary">返回</a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

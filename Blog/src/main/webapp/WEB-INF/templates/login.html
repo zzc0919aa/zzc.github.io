@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/static/css/login.css}">
+    <script th:src="@{/static/js/util.js}"></script>
+</head>
+<body>
+    <div id="body">
+        <p style="font-size: 36px;margin-left: 15px">Welcome Login</p>
+        <form th:action="@{/user/login}" method="post">
+
+            <p>
+                <input name="email" type="email" id="email" class="form-control" style="width: 300px;" placeholder="邮箱">
+            </p>
+            <p>
+                <input name="password" type="password" id="password" class="form-control" style="width: 300px;" placeholder="密码">
+            </p>
+            <p>
+                <input type="submit" th:value="登录" class="btn btn-primary" style="width: 35%;height: 40px;font-size: 16px;">
+                <input type="reset" th:value="重置" class="btn btn-success" style="width: 35%;height: 40px;font-size: 16px;margin-left: 5%;">
+            </p>
+            <p style="padding-bottom: 5%;">
+                <span><a href="">点击注册账号</a></span>
+                <span style="margin-left: 10%;">
+                    <span id="message" style="color: red"></span>
+                    <span th:text="${MSG}"></span>
+                </span>
+            </p>
+    </div>
+</form>
+</body>
+</html>
